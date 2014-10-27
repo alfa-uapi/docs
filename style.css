@@ -1,17 +1,42 @@
-
-.container {
-    margin: 10px auto;
-    width: 50%;
-}
-
 #pageTitle {
     text-align: center;
+    display: inline-block;
+    vertical-align: middle;
+    float: right;
 }
 
-.contentBlock {
-    padding-left: 50px;
+.fixedContainer {
+    position: fixed;
+}
+
+.contents {
+    margin-top: 70px;
 }
 
 .contentBlockTitle {
-    text-decoration: underline;
+    text-align: center;
+}
+
+h2 samp:hover {
+    color: #428BCA;
+    cursor: pointer;
+}
+
+.container .well {
+    border-color: #EE3232;
+    border-width: 2px;
+    margin-top: -3px;
+    min-height: 80px;
+    background-color: white;
+}
+
+.container .well img {
+    width: 130px;
+    vertical-align: middle;
+}
+
+@media print {
+    .contents {
+        display: none;
+    }
 }
