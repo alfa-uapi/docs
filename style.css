@@ -1,0 +1,17 @@
+
+.container {
+    margin: 10px auto;
+    width: 50%;
+}
+
+#pageTitle {
+    text-align: center;
+}
+
+.contentBlock {
+    padding-left: 50px;
+}
+
+.contentBlockTitle {
+    text-decoration: underline;
+}

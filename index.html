@@ -1,0 +1,748 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css" type="text/css"/>
+        <title>REST API для проведения платежей</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    </head>
+    <body>
+        <div class="container" style="">
+            <h1 id="pageTitle">REST API для проведения платежей</h1>
+            <h1 class="contentBlockTitle">Содержание</h1>
+            <ol>
+                <li><a href="#totalDesc">Общее описание</a></li>
+                <li><a href="#endpoints">Endpoints</a></li>
+                <li><a href="#auth">Авторизация</a></li>
+                <li><a href="#transfers">Переводы</a></li>
+                <li><a href="#customerCards">Пользовательские карты</a></li>
+                <li><a href="#templates">Шаблоны</a></li>
+                <li><a href="#errorHandling">Обработка ошибок</a></li>
+            </ol>
+            <h1 id="totalDesc" class="contentBlockTitle">Общее описание</h1>
+            <div class="contentBlock">
+                <p>Система предоставляет партнерам возможность совершения переводов с карты на карту от лица пользователя, 
+                    используя OAuth2 токен в качестве средства аутентификации пользователя. Токен выдается 
+                    сервером авторизации партнеру с предоставлением выбора способа авторизации пользователя - 
+                    либо с подтверждением по смс/ussd, либо оставляя проверку личности на усмотрение партнера.
+                    В первом случае выдается токен так называемого "авторизированного пользователя", во втором случае - "анонимного пользователя".
+                    Права и доступ для токенов различаются и отображены в таблице ниже:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Вид операции</th>
+                            <th>Токен авторизованного пользователя</th>
+                            <th>Токен анонимного пользователя</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Подсчет комиссии</td>
+                            <td>+</td>
+                            <td>+</td>
+                        </tr>
+                        <tr>
+                            <td>Переводы</td>
+                            <td>+</td>
+                            <td>+</td>
+                        </tr>
+                        <tr>
+                            <td>Карты</td>
+                            <td>+</td>
+                            <td>+</td>
+                        </tr>
+                        <tr>
+                            <td>Пользовательские карты</td>
+                            <td>+</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Шаблоны</td>
+                            <td>+</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h1 id="endpoints" class="contentBlockTitle">Endpoints</h1>
+            <div class="contentBlock">
+                <p>Тестовая среда с api:
+                    <ul>
+                        <li><a href="https://testjmb.alfabank.ru/api/v1/fee">
+                                https://testjmb.alfabank.ru/api/v1/fee</a></li>
+                        <li><a href="https://testjmb.alfabank.ru/api/v1/transfers">
+                                https://testjmb.alfabank.ru/api/v1/transfers</a></li>
+                    </ul>
+                </p>
+                <p>Тестовые среда для проведения авторизации:
+                    <ul>
+                        <li><a href="https://testjmb.alfabank.ru/api/oauth/token">
+                                https://testjmb.alfabank.ru/api/oauth/token</a></li>
+                        <li><a href="https://testjmb.alfabank.ru/api/oauth/authorize">
+                                https://testjmb.alfabank.ru/api/oauth/authorize</a></li>
+                    </ul>
+                </p>
+                <p>Структура запроса</p>
+                <pre><code>https://testjmb.alfabank.ru/api/v1/fee
+|                          |   |  |   |
+`--------------------------`---`--`---`-----`
+               |             |   |          |
+            base url        api  version     service
+                          endpoint          endpoint
+                          
+https://testjmb.alfabank.ru/api/oauth/authorize
+|                          |   |               |
+`--------------------------`---`---------------`
+               |             |          |
+            base url        api        service
+                          endpoint     endpoint</code></pre>
+                <!--            <h1 id="тестовые-пользователи">Тестовые пользователи</h1>
+                            <p><em><strong>name [password]</strong></em></p>
+                            <ol style="list-style-type: decimal">
+                                <li>user_with_phone_999999 [test_password_for_999999]</li>
+                                <li>user_with_phone_888888 [test_password_for_888888]</li>
+                                <li>user_with_phone_777777 [test_password_for_777777]</li>
+                                <li>user_with_phone_666666 [test_password_for_666666]</li>
+                                <li>user_with_phone_555555 [test_password_for_555555]</li>
+                            </ol>
+                            <blockquote>
+                                <p>В данный момент для авторизации используется телефон пользователя. При получении токена вводите телефон тестового пользователя. Его можно узнать из имени тестового пользователя по шаблону username_phone$</p>
+                            </blockquote>
+                            <blockquote>
+                                <p>Пример запроса на получение токена для пользователя 1: ${base_url}api/oauth/token?grant_type=password&amp;username=555555&amp;password=test_password_for_555555&amp;scope=read write</p>
+                            </blockquote>
+                            <blockquote>
+                                <p>Обратите внимание, что партнёр должен быть авторизован для получения токена.</p>
+                            </blockquote>-->
+            </div>
+            <h1 id="auth" class="contentBlockTitle">Авторизация</h1>
+            <div class="contentBlock">
+                <p>Для авторизации необходимо получить логин-пароль через доверенное лицо. После чего можно получить токен для исполнения запросов в системе.</p>
+                <p>Сценарии:</p>
+                <ol style="list-style-type: decimal">
+                    <li>Получение токена для пользователя известного лишь партнёру</li>
+                    <li>Получение токена для пользователя, известного системе</li>
+                    <li>Получение пароля пользователем по коду</li>
+                    <li>Получение пользователем токена без участия партнёра</li>
+                </ol>
+                <p>Сценарии 3-4 находятся в тестировании, докуменатция по ним не предоставлена.</p>
+                <h3 id="авторизация-партнёра">Авторизация партнёра</h3>
+                <p>У партнёра должен быть логин и пароль. Для произведения любой операции, не требующей токен, требуется аутентификация партнёра.</p>
+                <p>С помощью логина и пароля можно произвести Basic аутентификацию на сервере авторизации. После чего появляется возможность получить токен для исполнения операций.</p>
+                <p>Формирование заголовка для авторизации:</p>
+                <pre><code>Authorization Basic base64(login:password)</code></pre>
+                <h3 id="авторизация.-сценарий-1-получение-партнерского-токена.">Авторизация. Сценарий 1: Получение партнерского токена.</h3>
+                <p>Запрос:</p>
+                <pre><code>GET /api/oauth/token?scope=read&amp;grant_type=client_credentials
+Host: testjmb.alfabank.ru
+Authorization: Basic cGaadS5lMl51cHWHyX2vFDGg54wWDAGVDJDSfaAScx73hasDcMDAxsdjNxdioyK12sa/BcMCASDGASFgzMMISDFH
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>grant_type - определяет способ авторизации пользователя. client_credentials - оставляет проверку личности пользователя на стороне клиента, повышая риск и необходимость прохождения сертификации в случае использования или передачи личных данных. Все действия с таким токеном (далее - анонимный токен), происходят от лица партнера, обеспечивая таким образом анонимность конечного пользователя для REST API.</li>
+                    <li>scope - параметр тестируется, предполагаемые варианты : &quot;write read&quot; &quot;write&quot; &quot;read&quot;. Параметр зависит от прав, которыми наделёна учётка партнёра.</li>
+                </ul>
+                <p>В Authorization - credentials партнера.</p>
+                <p>Ответ:</p>
+                <pre><code>{
+    &quot;access_token&quot;: &quot;d3277c32-2da2-4a4b-8efb-c3db8d99d04e&quot;,
+    &quot;token_type&quot;: &quot;bearer&quot;,
+    &quot;expires_in&quot;: 43199,
+    &quot;scope&quot;: &quot;read write&quot;
+}</code></pre>
+                <ul>
+                    <li>access_token - основной токен для произведения операций</li>
+                    <li>refresh_token - токен для получение access_token в случае если он истекает или утерян.</li>
+                    <li>expires_in - время в секундах до истечения срока действия токена</li>
+                    <li>scope - scope операций в котором действует токен пользователя</li>
+                </ul>
+                <h3 id="авторизация.-сценарий-2-получение-пользовательского-токена.">Авторизация. Сценарий 2: Получение пользовательского токена.</h3>
+                <p>Запрос 1 (получение одноразового пароля):</p>
+                <pre><code>GET /api/users/authorize?sender=%2B79260000000&amp;alerttype=sms
+Host: testjmb.alfabank.ru
+Authorization: Basic cGaadS5lMl51cHWHyX2vFDGg54wWDAGVDJDSfaAScx73hasDcMDAxsdjNxdioyK12sa/BcMCASDGASFgzMMISDFH
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>sender - номер телефона пользователя ( в формате +7(код оператора))</li>
+                    <li>alerttype - способ доставки одноразового пароля ( sms или ussd )</li>
+                </ul>
+                <p>В Authorization - credentials партнера.</p>
+                <p>Ответ:</p>
+                <pre><code>{
+    &quot;user_id&quot;: &quot;4100&quot;
+}</code></pre>
+                <ul>
+                    <li>user_id - id пользователя в системе</li>
+                </ul>
+                <p>Запрос 2 (получение токена):</p>
+                <pre><code>GET /api/oauth/token?username=%2B79260000000&amp;password=941135&amp;scope=read&amp;grant_type=one_time_password
+Host: testjmb.alfabank.ru
+Authorization: Basic cGaadS5lMl51cHWHyX2vFDGg54wWDAGVDJDSfaAScx73hasDcMDAxsdjNxdioyK12sa/BcMCASDGASFgzMMISDFH
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>username - логин пользователя (на текущий момент только номер телефона пользователя в формате +7(код оператора))</li>
+                    <li>password - одноразовый пароль</li>
+                    <li>scope - параметр тестируется, предполагаемые варианты : &quot;write read&quot; &quot;write&quot; &quot;read&quot;. Параметр зависит от прав, которыми наделёна учётка партнёра.</li>
+                    <li>grant_type - определяет способ авторизации пользователя. one_time_password - для получения токена используется логин пользователя и одноразовый пароль.</li>
+                </ul>
+                <p>В Authorization - credentials партнера.</p>
+                <p>Ответ</p>
+                <pre><code>{
+    &quot;access_token&quot;: &quot;d3277c32-2da2-4a4b-8efb-c3db8d99d04e&quot;,
+    &quot;token_type&quot;: &quot;bearer&quot;,
+    &quot;expires_in&quot;: 43199,
+    &quot;refresh_token&quot;: &quot;d327dsa2c2-2sa2-4a4b-8-9sdfg4e8d04e&quot;,
+    &quot;scope&quot;: &quot;read write&quot;
+}</code></pre>
+                <ul>
+                    <li>access_token - основной токен для произведения операций</li>
+                    <li>refresh_token - токен для получение access_token в случае если он истекает или утерян.</li>
+                    <li>expires_in - время в секундах то истечения срока действия токена</li>
+                    <li>scope - scope операций в котором действует токен пользователя</li>
+                </ul>
+                <h3 id="авторизация.-переполучение-токена-при-помощи-refresh_token">Авторизация. Переполучение токена при помощи refresh_token</h3>
+                <p>В случае если на запрос токена был так же выдан refresh_token, то получить новый токен можно с помощью refresh_token</p>
+                <p>Запрос:</p>
+                <pre><code>GET /api/oauth/token?refresh_token=13969409-a728-453b-99fe-bc6fb0800b1a&amp;scope=read&amp;grant_type=refresh_token
+Host: testjmb.alfabank.ru
+Authorization: Basic cGaadS5lMl51cHWHyX2vFDGg54wWDAGVDJDSfaAScx73hasDcMDAxsdjNxdioyK12sa/BcMCASDGASFgzMMISDFH
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>refresh_token - refresh token пользователя</li>
+                    <li>scope - параметр тестируется, предполагаемые варианты : &quot;write read&quot; &quot;write&quot; &quot;read&quot;. Параметр зависит от прав, которыми наделёна учётка партнёра.</li>
+                    <li>grant_type - определяет способ авторизации пользователя. refresh_token - авторизация через refresh_token.</li>
+                </ul>
+                <h3 id="авторизация-по-токену">Авторизация по токену</h3>
+                <p>При всех нижеперчисленных запросах, требуется прикрепление токена к запросу, если не указано иначе.</p>
+                <p>Прикрепление токена производится добавлением, полученных на предыдущих этапах,типа и значения токена к полю Authorization</p>
+                <p>Наличие в Authorization credentials партнера не требуется.</p>
+                <p>Пример</p>
+                <pre><code>Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h</code></pre>
+            </div>
+            <!--<h1 class="contentBlockTitle">POST /fee</h1>-->
+            <h1 id="transfers" class="contentBlockTitle">Переводы</h1>
+            <div class="contentBlock">
+                <p>Предполагаемый сценарий работы - партнер получает токен для пользователя (либо для авторизованного,
+                    либо для анонимного), после чего с этим токеном в заголовках запроса совершаются следующие действия:
+                    <ol>
+                        <li>Определяется размер коммисии и отображается пользователю до проведения операции (POST /fee)</li>
+                        <li>Инициализируется транзакция (PUT /transfers)</li>
+                        <li>Транзакция завершается (после одобрения в 3DS банка-эмитета карты, с которой снимаются деньги для проведения платежа) (POST /transfers)</li>
+                    </ol>
+                    Если транзакции были проведены с помощью токена авторизированного пользователя, возможен прсомотр истории переводов (GET /users/{userId}/transfers)
+                </p>
+                <h2>POST /fee</h2>
+                <p>Вызывается для определения комиссии при платеже. CalculateFee в SV Запрос</p>
+                <pre><code>HEADER: 
+TYPE: POST
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Accept: application/json
+{
+   &quot;sender_type&quot;:&quot;cnm&quot;,   
+   &quot;sender_value&quot;:&quot;xxxxxxxxxxxxxxx&quot;,
+   &quot;recipient_type&quot;:&quot;cnm&quot;,
+   &quot;recipient_value&quot;:&quot;xxxxxxxxxxxxxxx&quot;,
+   &quot;amount&quot;:&quot;1&quot;,
+   &quot;currency&quot;:&quot;RUR&quot;
+}</code></pre>
+                <ul>
+                    <li>sender_type - тип источника перевода. Доступные типы: &quot;cnm&quot; - карта</li>
+                    <li>sender_value - значение источника перевода</li>
+                    <li>recipient_type - тип получателя перевода. Доступные типы: &quot;cnm&quot; - карта</li>
+                    <li>recipient_value - значение получателя</li>
+                    <li>amount - сумма перевода</li>
+                    <li>currency - валюта. Доступные: &quot;RUR&quot;</li>
+                </ul>
+                <p>Ответ</p>
+                <pre><code>{
+    &quot;fee&quot;: &quot;0&quot;,
+    &quot;interest&quot;: &quot;-1&quot;,
+    &quot;constant&quot;: &quot;-100&quot;,
+    &quot;min&quot;: &quot;-100&quot;,
+    &quot;max&quot;: &quot;-100&quot;
+}</code></pre>
+                <ul>
+                    <li>fee - общая сумма комисси в &quot;минимально возможной&quot;, &quot;неделимой&quot;, валютной единицеы</li>
+                    <li>interest - процентная часть комиссии</li>
+                    <li>constant - обязательная часть комиссии</li>
+                    <li>min - сумма, ниже которой комиссия быть не может</li>
+                    <li>max - сумма, выше которой комиссия быть не может</li>
+                </ul>
+                <p>Ошибка</p>
+                <pre><code>{
+    &quot;error&quot;: &quot;APE0302&quot;,
+    &quot;error_description&quot;: &quot;APE0302&quot;
+}</code></pre>
+
+
+                <h2 id="put-transfers">PUT /transfers</h2>
+                <p>Вызывается для инициации платежа. Фаза AttemptTransfer в SV</p>
+                <p>Запрос</p>
+                <pre><code>HEADER: 
+TYPE: PUT
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Accept: application/json
+{
+    &quot;sender_type&quot;:&quot;cnm&quot;,
+    &quot;sender_value&quot;:&quot;xxxxxxxxxxxxxxx4285&quot;,
+    &quot;recipient_type&quot;:&quot;cnm&quot;,
+    &quot;recipient_value&quot;:&quot;xxxxxxxxxxxxxxx5864&quot;,
+    &quot;exp_date&quot;:&quot;202501&quot;,
+    &quot;cvv&quot;:&quot;xxx&quot;,
+    &quot;amount&quot;:&quot;1&quot;,
+    &quot;currency&quot;:&quot;RUR&quot;,
+    &quot;client_ip&quot;:&quot;127.0.0.1&quot;
+}</code></pre>
+                <ul>
+                    <li>sender_type - тип источника перевода. Доступные типы: &quot;cnm&quot; - карта</li>
+                    <li>sender_value - значение источника перевода</li>
+                    <li>recipient_type - тип получателя перевода. Доступные типы: &quot;cnm&quot; - карта</li>
+                    <li>recipient_value - значение получателя</li>
+                    <li>exp_date - срок действия карты (данные карты)</li>
+                    <li>cvv - CVV код карты (данные карты)</li>
+                    <li>amount - сумма перевода</li>
+                    <li>currency - валюта. Доступные: &quot;RUR&quot;</li>
+                    <li>client_ip - ip адрес источника перевода</li>
+                </ul>
+                <p>Ответ</p>
+                <pre><code>{
+    &quot;termURL&quot;: &quot;http://a103145.moscow.alfaintra.net:7101/uapi10/transfers&quot;,
+    &quot;acsURL&quot;: &quot;https://acs.alfabank.ru/acs/PAReq&quot;,
+    &quot;md&quot;: &quot;3005008BFD2875B880F6E8AFA738036A&quot;,
+    &quot;pareq&quot;: &quot;eJxlUttuozAQ/RXEe/GFS2g0cUVLquaBLsp2+1q5ME1YhUttKOl+/dqEpLvqg61zxuO5nBm4OdYH5wOVrtpm5TKPug42RVtWzW7l/nq6v4rdGwFPe4WY/sRiUCggQ63lDp2qXLm13nnMFZAnW3wXMEcSJpDHgZyp+aKKvWx6AbJ4v908ijCIo4UPZKZQo9qkgnHm+3y6fUrpBAIgp0doZI3iLtmm3F5Ovt6un3+kQCY7FO3Q9OpTRIEJeyYwqIPY932nl4SM4+jJw5vsWtXLg6cGMuLri0b1URVIcp6/9Eo2+g0VAWI/AvmqOx8s0ibRsSpFlibj6axplm7Gx3RzzH4nn9mf9QqI9YBS9ig4ZQGNaOQwvqTxMqBAJjvI2lYomFHghKCzCZKL+V8KRndlxnJu7swAj13boPEwWl8wlKiL7zo53dyBKcE6APlq6e7BDqbojcpXLKRReB3TIPYCvgj9ax7QOPJDGkZ2XJOTTVwZedmCsimzJUBsGDJvApm3xKD/tucvuCzKMA==&quot;
+}</code></pre>
+                <ul>
+                    <li>termURL - адрес на который необходимо произвести редирект пользователя с АБС банка, при проведении 3DSecure</li>
+                    <li>acsURL - адресс АБС банка эмитента карты</li>
+                    <li>md - параметр безопасности для АБС</li>
+                    <li>pareq - параметр безопасности для АБС.</li>
+                </ul>
+                <blockquote>
+                    <p>Обратите внимание на то, что значение <em>pareq</em> со спецсимволами. Перед отправкой на АБС банка, вам необходимо декодировать спецсимволы (\n - перевод строки например)</p>
+                </blockquote>
+                <p>Пример раскодирования pareq на Swift:</p>
+                <pre><code>pareq.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())</code></pre>
+                <p>Ошибка</p>
+                <pre><code>{
+    &quot;error&quot;: &quot;APE0302&quot;,
+    &quot;error_description&quot;: &quot;APE0302&quot;
+}</code></pre>
+                <h2 id="post-transfers">POST /transfers</h2>
+                <p>Вызывается для завершения платежа после подтверждения на АБС банка эмитента карты. Фаза CompleteTransfer в SV Вызывается либо вручную с Content-Type: application/json для завершение платежа, либо указывается в качестве termUrl при переходе на АБС страницу банка для ввода 3DS пароля Пример вызова: Запрос</p>
+                <p>Запрос</p>
+                <pre><code>HEADER: 
+TYPE: POST
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Accept: application/json
+{
+    &quot;MD&quot;:&quot;5218593D37AB7922A01E33DB39569A23&quot;,
+    &quot;PaRes&quot;:&quot;...........&quot;
+}</code></pre>
+                <p>Ответ:</p>
+                <pre><code>{
+    &quot;transactionId&quot;:&quot;213123&quot;
+    &quot;postbackURL&quot;:&quot;http://.......&quot;
+}</code></pre>
+                <p>Ошибка</p>
+                <pre><code>{
+    &quot;error&quot;:&quot;KSM2010&quot;,
+    &quot;error_description&quot;:&quot;KSM2010 Checksumm \&quot;FDSFSD does not exist on the database &quot;
+}</code></pre>
+                <p>АБС банка дёргает с параметрами так:</p>
+                <blockquote>
+                    <p>Данный функционал релизует редирект лишь для ограниченного числа партнёров. Производится тестирование</p>
+                </blockquote>
+                <pre><code>HEADER: 
+TYPE: POST
+Content-Type: application/x-www-form-urlencoded
+MD=&quot;5218593D37AB7922A01E33DB39569A23&amp;PaRes=eJzVWFmzo0iu......................</code></pre>
+                <p>Пример ответа:</p>
+                <p>Редирект на страничку postbackUrl&amp;transactionId=</p>
+                <p>Ошибка</p>
+                <p>Редирект на страничку postbackUrl+?error</p>
+                <h2 id="get-usersuseridtransfers">GET /users/{userId}/transfers</h2>
+                <p>Вызывается для получения истории переводов для авторизированного пользователя. Не работает с анонимным токеном.</p>
+                <p>Запрос:</p>
+                <pre><code>GET users/{userId}/transfers?modestate=A&amp;sender_card_id=...&amp;recipient_card_id=...&amp;template_id=...&amp;date_from=...&amp;date_to...&amp;count=...&amp;page=...
+Host: testjmb.alfabank.ru
+Authorization: Basic cGaadS5lMl51cHWHyX2vFDGg54wWDAGVDJDSfaAScx73hasDcMDAxsdjNxdioyK12sa/BcMCASDGASFgzMMISDFH
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                    <li>modestate - метод отбора списка переводов. &quot;A&quot; - все, &quot;E&quot; - ошибочные, &quot;S&quot; - успешные, &quot;W&quot; - на выполнении. Единственный обязательный параметр.</li>
+                    <li>sender_card_id - ID карты отправителя</li>
+                    <li>recipient_card_id - ID карты получателя</li>
+                    <li>template_id - ID использованного шаблона</li>
+                    <li>date_from - метод отбора списка переводов по минимальной дате проведения (UNIX time)</li>
+                    <li>date_to - метод отбора списка переводов по максимальной дате проведения (UNIX time)</li>
+                    <li>count и page - параметры для обеспечения паджинации ответа. сount - количество записей на страницу, page - номер страницы</li>
+                </ul>
+                <p>Ответ:</p>
+                <pre><code>{
+    total: 5,
+    transfers: [ {
+        &quot;transaction_id&quot;:&quot;CCxxxxxxxxxxxx&quot;,
+        &quot;sender_card&quot;:&quot;xxxxxxxxxxxxxxxxxx&quot;,
+        &quot;sender_card_id&quot;:&quot;CCxxxxxxxxxxxx&quot;,
+        &quot;sender_card_color&quot;:&quot;#xxxxxx&quot;,
+        &quot;sender_card_name&quot;:&quot;...&quot;,
+        &quot;recipient_card&quot;:&quot;xxxxxxxxxxxxxxxxxx&quot;,
+        &quot;recipient_card_id&quot;:&quot;CCxxxxxxxxxxxx&quot;,
+        &quot;recipient_card_color&quot;:&quot;#xxxxxx&quot;,
+        &quot;recipient_card_name&quot;:&quot;...&quot;,
+        &quot;app_id&quot;:&quot;...&quot;,
+        &quot;amount&quot;:&quot;xxxxxx&quot;,
+        &quot;currency&quot;:&quot;RUR&quot;,
+        &quot;client_ip&quot;:&quot;127.0.0.1&quot;,
+        &quot;status&quot;:&quot;...&quot;,
+        &quot;comment&quot;:&quot;...&quot;,
+        &quot;date&quot;: &quot;xxxxxxxxxxxxxx&quot;
+    }, ... ]
+}</code></pre>
+                <ul>
+                    <li>total - количество записей, попадающих под данные фильтры</li>
+                    <li>transfers - массив записей, каждая из которой отображает одну транзакцию</li>
+                    <li>transaction_id - ID транзакции</li>
+                    <li>sender_card - номер карты отправителя</li>
+                    <li>sender_card_id - ID карты отправителя</li>
+                    <li>sender_card_color - цвет карты отправителя</li>
+                    <li>sender_card_name - описание карты отправителя</li>
+                    <li>recipient_card - номер карты получателя</li>
+                    <li>recipient_card_id - ID карты получателя</li>
+                    <li>recipient_card_color - цвет карты получателя</li>
+                    <li>recipient_card_name - описание карты получателя</li>
+                    <li>app_id - ID партнера</li>
+                    <li>amount - сумма перевода</li>
+                    <li>currency - валюта перевода</li>
+                    <li>client_ip - IP адрес клиента</li>
+                    <li>status - статус перевода</li>
+                    <li>comment - комментарий к переводу</li>
+                    <li>date - дата перевода в UNIX time</li>
+                </ul>
+                <p>Ошибка:</p>
+                <pre><code>{
+    &quot;error&quot;:&quot;...&quot;,
+    &quot;error_description&quot;:&quot;...&quot;
+}</code></pre>
+            </div>
+            <h1 id="cards" class="contentBlockTitle">Карты</h1>
+            <div class="contentBlock">
+                <h2>POST cards</h2>
+                <p>Создает карту, не привязанную к пользователю</p>
+                <p>Пример запроса</p>
+                <pre><code>{
+  "card_number": "1234561234565",
+  "exp_date": "201511"
+}</code></pre>
+                <ul>
+                    <li>card_numder - немаскированный номер карты</li>
+                    <li>exp_date - скор действия карты</li>
+                </ul>
+                <p>Пример ответа</p>
+                <pre><code>{
+    "card_id":"CC22706130000020"
+}</code></pre>
+                <ul>
+                    <li>card_id - id карты в системе</li>
+                </ul>
+            </div>
+            <h1 id="customerCards" class="contentBlockTitle">Пользовательские карты</h1>
+            <div class="contentBlock">
+                <p>Предполагаемый сценарий работы - партнер получает токен для авторизованного пользователя,
+                    после чего может узнать список имеющихся у этого пользователя карт (GET users/{userId}/cards),
+                    модифицировать эти карты (PUT /users/{userId}/cards/{cardId}), удалять (DELETE users/{userId}/cards/{cardId}) 
+                    или добавлять новые (POST /users/{userId}/cards)</p>
+                <h2>GET /users/{userId}/cards</h2>
+                <p>Возвращает список карт, зарегистрированных на пользователя. Не работает с анонимным токеном.</p>
+                <ul>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                </ul>
+                <p>Запрос</p>
+                <pre><code>GET users/{userId}/cards?default=...&amp;active=...&amp;deleted=...
+Host: testjmb.alfabank.ru
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>default - true или false. по умолчанию false.
+                        Если true - отображает все карты по умлочанию. Если false - отображает все карты, не являющиеся картами по умолчанию</li>
+                    <li>active - true или false, по умолчанию true. 
+                        Если true - отображаются только активные карты, 
+                        если false - отображаются уже не активные. Необязательный параметр</li>
+                    <li>deleted - true или false, по умолчанию false.
+                        Если true - отображаются только удаленные карты, если false - отображаются неудаленные карты.
+                        Необязательный параметр
+                    </li>
+                </ul>
+                <p>Пример ответа</p>
+                <pre><code>{
+    "cards":[
+        {
+            "debit":true,
+            "credit":false,
+            "delete":false,
+            "active":true,
+            "alfa":false,
+            "card_id":"CC22806130000006",
+            "card_number":"520339**************3333",
+            "exp_date":"2015-11-20",
+            "card_color":"#123123",
+            "card_name":"",
+            "default":false
+        },{
+            "debit":false,
+            "credit":true,
+            "delete":false,
+            "active":true,
+            "alfa":false,
+            "card_id":"CC23006130000010",
+            "card_number":"251655**************5455",
+            "exp_date":"2017-07-01",
+            "card_color":"#123123",
+            "card_name":"карточка",
+            "default":false
+        }
+    ]
+}</code></pre>
+                <ul>
+                    <li>cards - список карт</li>
+                    <li>debit - карта используется как получатель в переводах</li>
+                    <li>credit - карта используется как отправитель в переводах</li>
+                    <li>delete - карта удалена пользователем</li>
+                    <li>active - карта активна</li>
+                    <li>card_id - id карты в системе</li>
+                    <li>card_number - маскированный номер карты</li>
+                    <li>exp_date - срок действия карты</li>
+                    <li>card_color  цвет карты</li>
+                    <li>card_name - пользовательское имя карты</li>
+                    <li>default - карта является картой по умолчанию</li>
+                </ul>
+                <h2>POST /users/{userId}/cards</h2>
+                <p>Создает новую карту, привязанную к пользователю. Не работает с анонимным токеном</p>
+                <ul>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                </ul>
+                <p>Пример запроса</p>
+                <pre><code>HEADER: 
+TYPE: POST
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Accept: application/json
+{
+    "number": "1234561234561", 
+    "default": true,
+    "exp_date": "201511",
+    "color": "#112233",
+    "name": "test_name_2"
+}</code></pre>
+                <ul>
+                    <li>number - номер карты (не маскированный)</li>
+                    <li>default - карта по умолчанию</li>
+                    <li>exp_date - срок действия карты</li>
+                    <li>color - цвет карты</li>
+                    <li>name - пользовательское имя карты</li>
+                </ul>
+                <p>Пример ответа</p>
+                <pre><code>{
+    "color":"#112233",
+    "name":"test_name_2",
+    "debit":false,
+    "credit":false,
+    "deleted":false,
+    "card_id":"CC22606130000004",
+    "default":true
+}
+</code></pre>
+                <h2>PUT /users/{userId}/cards/{cardId}</h2>
+                <p>Обновляет информацию по карте</p>
+                <ul>
+                    <li>cardId - id карты в системе вида CC22606130000004</li>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                </ul>
+                <p>Пример запроса</p>
+                <pre><code>HEADER: 
+TYPE: PUT
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Accept: application/json
+{
+    "default": true,
+    "color": "#112233",
+    "name": "test_name_2",
+    "active": true,
+    "debit": true,
+    "credit": false
+}</code></pre>
+                <ul>
+                    <li>default - карта по умолчанию</li>
+                    <li>color - цвет карты</li>
+                    <li>name - пользовательское имя карты</li>
+                    <li>credit - карта используется как отправитель в переводах</li>
+                    <li>delete - карта удалена пользователем</li>
+                    <li>active - карта активна</li>
+                </ul>
+                <p>Пример ответа</p>
+                <pre><code>{
+    "color": "#112233",
+    "name": "test_name_2 ",
+    "debit": false,
+    "credit": true,
+    "active": false,
+    "default": false
+}</code></pre>
+                <h2>DELETE users/{userId}/cards/{cardId}</h2>
+                <p>Удаляет карту</p>
+                <ul>
+                    <li>cardId - id карты в системе вида CC22606130000004</li>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                </ul>
+                <p>Пример запроса</p>
+                <pre><code>HEADER: 
+TYPE: DELETE
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h</code></pre>
+                <p>Пример ответа</p>
+                <pre><code>{
+    "color": "#112233",
+    "name": "test_name_2 ",
+    "debit": false,
+    "credit": false,
+    "active": true,
+    "default": false
+}
+</code></pre>
+            </div>
+            <h1 id="templates" class="contentBlockTitle">Шаблоны переводов</h1>
+            <div class="contentBlock">
+                <h2>GET users/{userId}/templates</h2>
+                <p>Возвращает список шаблонов переводов, доступных пользователю. Не работает с анонимным токеном.</p>
+                <ul>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                </ul>
+                <p>Запрос</p>
+                <pre><code>GET users/{userId}/templates?active=...&amp;deleted=...
+Host: testjmb.alfabank.ru
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Cache-Control: no-cache</code></pre>
+                <ul>
+                    <li>active - true или false, по умолчанию true. 
+                        Если true - отображаются только активные карты, 
+                        если false - отображаются уже не активные. Необязательный параметр</li>
+                    <li>deleted - true или false, по умолчанию false.
+                        Если true - отображаются только удаленные карты, если false - отображаются неудаленные карты.
+                        Необязательный параметр
+                    </li>
+                </ul>
+                <p>Пример ответа</p>
+                <pre><code>{
+    "templates":[
+        {
+            "amount":5,
+            "currency":"RUR",
+            "name":"gfnk",
+            "verification":"N",
+            "active":true,
+            "delete":false,
+            "template_id":"CC53006130000003",
+            "sender_card_id":"CC22706130000003",
+            "sender_card":"CC22706130000003",
+            "sender_card_color":"#123123",
+            "sender_card_name":"",
+            "sender_card_active":false,
+            "sender_card_delete":false,
+            "recipient_card_id":"CC22706130000021",
+            "recipient_card_name":"",
+            "recipient_card":"515441**************4200",
+            "recipient_card_color":"",
+            "recipient_card_active":false,
+            "recipient_card_delete":false
+        }
+    ]
+}</code></pre>
+                <ul>
+                    <li>amount - сумма перевода</li>
+                    <li>currency - валюта перевода</li>
+                    <li>name - пользовательское имя шаблона</li>
+                    <li>verification - true, если по шаблону была проведена хотя бы одна успешная транзакция. Иначе - false</li>
+                    <li>active - шаблон входит в список используемых</li>
+                    <li>delete - шаблон удален</li>
+                    <li>template_id - id шаблона в системе</li>
+                    <li>sender_card_id - id карты отправителя в системе вида CC23006130000010</li>
+                    <li>sender_card - маскированный номер карты отправителя</li>
+                    <li>sender_card_color - цвет карты отправителя</li>
+                    <li>sender_card_name - пользовательское имя карты отправителя</li>
+                    <li>sender_card_active - карта отправителя входит в список используемых</li>
+                    <li>sender_card_delete - карта отправителя удалена</li>
+                    <li>recipient_card_id - id карты получателя</li>
+                    <li>recipient_card_name - пользовательское имя карты получателя</li>
+                    <li>recipient_card - маскированный номер карты получателя</li>
+                    <li>recipient_card_color - цвет карты получателя</li>
+                    <li>recipient_card_active - карта получателя входит в список используемых</li>
+                    <li>recipient_card_delete - карат поулчателя удалена</li>
+                </ul>
+                <h2>PUT users/{userId}/templates/{templateId}</h2>
+                <p>Обновляет данные в шаблоне</p>
+                <ul>
+                    <li>userId - id пользователя в системе,
+                        приходит в ответ на запрос получения одноразового пароля для этого пользователя</li>
+                    <li>templateId - id шаблона в системе вида CC23006130000010</li>
+                </ul>
+                <p>Пример запроса</p>
+                <pre><code>HEADER: 
+TYPE: PUT
+Content-Type: application/json
+Authorization: Bearer d3277c36-133su2-4a4a-2agb-c5ab8n99f04h
+Accept: application/json
+{
+    "name": "gfnk",
+    "active:: true,
+    "delete": false
+}</code></pre>
+                <ul>
+                    <li>name - пользовательское имя шаблона</li>
+                    <li>active - действующий шаблон</li>
+                    <li>delete - шаблон удален</li>
+                </ul> 
+                <p>Пример ответа</p>
+                <pre><code>{
+    "amount":5,
+    "currency":"RUR",
+    "name":"gfnk",
+    "active":true,
+    "delete":false,
+    "template_id":"CC53006130000003",
+    "sender_card_id":"CC22706130000003",
+    "recipient_card_id":"CC22706130000021"
+}</code></pre>
+                <ul>
+                    <li>amount - сумма перевода</li>
+                    <li>currency - валюта перевода</li>
+                    <li>name - пользовательское имя шаблона</li>
+                    <li>active - шаблон входит в список используемых</li>
+                    <li>delete - шаблон удален</li>
+                    <li>template_id - id шаблона в системе</li>
+                    <li>sender_card_id - id карты отправителя в системе вида CC23006130000010</li>
+                    <li>recipient_card_id - id карты получателя</li>
+                </ul>
+            </div>
+            <h1 id="errorHandling" class="contentBlockTitle">Обработка ошибок</h1>
+            <div class="contentBlock">
+                <p>В случае возникновения ошибок возвращается ответ следующего вида</p>
+                <pre><code>{
+    &quot;error&quot;: &quot;APE0302&quot;,
+    &quot;error_description&quot;: &quot;Invalid access token: a6bdb500-d07c-4ab7-9014-9a96d6c62f55&quot;
+}</code></pre>
+                <ul>
+                    <li>error - код ошибки</li>
+                    <li>error_description - текстовое описание ошибки</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
