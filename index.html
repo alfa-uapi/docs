@@ -4,14 +4,14 @@
         <link rel="stylesheet" href="style.css" type="text/css"/>
         <script href="js/bootstrap.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-        <title>REST API для проведения платежей</title>
+        <title>REST API для совершения переводов</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     </head>
     <body>
         <div class="container">
             <div class="well">
                 <img src="img/index.png"/>
-                <h1 id="pageTitle">REST API для проведения платежей</h1>
+                <h1 id="pageTitle">REST API для совершения переводов</h1>
             </div>
             <div class="col-md-3 contents">
                 <div class="fixedContainer">
@@ -290,12 +290,12 @@ Cache-Control: no-cache</code></pre>
                         <ol>
                             <li>Определяется размер коммисии и отображается пользователю до проведения операции (<samp>POST /fee</samp>)</li>
                             <li>Инициализируется транзакция (<samp>PUT /transfers</samp>)</li>
-                            <li>Транзакция завершается (после одобрения в 3DS банка-эмитета карты, с которой снимаются деньги для проведения платежа) (<samp>POST /transfers</samp>)</li>
+                            <li>Транзакция завершается (после одобрения в 3DS банка-эмитета карты, с которой снимаются деньги для совершения переводов) (<samp>POST /transfers</samp>)</li>
                         </ol>
                         Если транзакции были проведены с помощью токена авторизированного пользователя, возможен прсомотр истории переводов (<samp>GET /users/{userId}/transfer</samp>)
                     </p>
                     <h2><span class="glyphicon glyphicon-tag btn-lg"></span><samp>POST /fee</samp></h2>
-                    <p>Вызывается для определения комиссии при платеже. CalculateFee в SV 
+                    <p>Вызывается для определения комиссии при переводе. CalculateFee в SV 
                         <div class="panel panel-primary">
                             <div class="panel-heading"><h3 class="panel-title">Пример запроса</h3></div>
                             <div class="panel-body">
@@ -342,7 +342,7 @@ Accept: application/json
                             </div>
                         </div>
                         <h2><span class="glyphicon glyphicon-tag btn-lg"></span><samp>PUT /transfers</samp></h2>
-                        <p>Вызывается для инициации платежа. Фаза AttemptTransfer в SV</p>
+                        <p>Вызывается для инициации перевода. Фаза AttemptTransfer в SV</p>
                         <div class="panel panel-primary">
                             <div class="panel-heading"><h3 class="panel-title">Пример запроса</h3></div>
                             <div class="panel-body">
@@ -398,7 +398,7 @@ Accept: application/json
                             </div>
                         </div>
                         <h2><span class="glyphicon glyphicon-tag btn-lg"></span><samp>POST /transfers</samp></h2>
-                        <p>Вызывается для завершения платежа после подтверждения на АБС банка эмитента карты. Фаза CompleteTransfer в SV Вызывается либо вручную с Content-Type: application/json для завершение платежа, либо указывается в качестве termUrl при переходе на АБС страницу банка для ввода 3DS пароля</p>
+                        <p>Вызывается для завершения перевода после подтверждения на АБС банка эмитента карты. Фаза CompleteTransfer в SV Вызывается либо вручную с Content-Type: application/json для завершения перевода, либо указывается в качестве termUrl при переходе на АБС страницу банка для ввода 3DS пароля</p>
                         <div class="panel panel-primary">
                             <div class="panel-heading"><h3 class="panel-title">Пример запроса</h3></div>
                             <div class="panel-body">
