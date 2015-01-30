@@ -1,0 +1,1546 @@
+<html>
+  <head>
+    <title>Api documentation</title>
+    <link href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css' rel='stylesheet'></link>
+    <link href='springdoc.css' rel='stylesheet'></link>
+    <link href='custom.css' rel='stylesheet'></link>
+  </head>
+  <body>
+    <div class='springdoc'>
+      <div class='row'>
+        <div class='col-md-3 sidebar'>
+          <div class='panel-group' id='api-resource'>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <h2 class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#api-resource' href='#api-resource0'>/cards</a>
+                </h2>
+              </div>
+              <div id='api-resource0' class='panel-collapse collapse'>
+                <ul class='list-unstyled'>
+                  <li class='resource-item'>
+                    <div class='label label-success resource-method'>POST</div>
+                    <a href='#api-resource0_addCard' data-toggle='tab'>/cards</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <h2 class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#api-resource' href='#api-resource1'>/{userId}</a>
+                </h2>
+              </div>
+              <div id='api-resource1' class='panel-collapse collapse'>
+                <ul class='list-unstyled'>
+                  <li class='resource-item'>
+                    <div class='label label-success resource-method'>POST</div>
+                    <a href='#api-resource1_addCard' data-toggle='tab'>users/{userId}/cards</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-primary resource-method'>GET</div>
+                    <a href='#api-resource1_getCards' data-toggle='tab'>users/{userId}/cards</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-info resource-method'>PUT</div>
+                    <a href='#api-resource1_updateCard' data-toggle='tab'>users/{userId}/cards{cardId}</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-danger resource-method'>DELETE</div>
+                    <a href='#api-resource1_deleteCard' data-toggle='tab'>users/{userId}/cards{cardId}</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-primary resource-method'>GET</div>
+                    <a href='#api-resource1_getList' data-toggle='tab'>users/{userId}/templates</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-primary resource-method'>GET</div>
+                    <a href='#api-resource1_getTemplate' data-toggle='tab'>users/{userId}/templates{templateId}</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-info resource-method'>PUT</div>
+                    <a href='#api-resource1_updateTemplate' data-toggle='tab'>users/{userId}/templates{templateId}</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-danger resource-method'>DELETE</div>
+                    <a href='#api-resource1_deleteTemplate' data-toggle='tab'>users/{userId}/templates{templateId}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <h2 class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#api-resource' href='#api-resource2'>/fee</a>
+                </h2>
+              </div>
+              <div id='api-resource2' class='panel-collapse collapse'>
+                <ul class='list-unstyled'>
+                  <li class='resource-item'>
+                    <div class='label label-success resource-method'>POST</div>
+                    <a href='#api-resource2_fee' data-toggle='tab'>/fee</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <h2 class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#api-resource' href='#api-resource3'>/transfers</a>
+                </h2>
+              </div>
+              <div id='api-resource3' class='panel-collapse collapse'>
+                <ul class='list-unstyled'>
+                  <li class='resource-item'>
+                    <div class='label label-info resource-method'>PUT</div>
+                    <a href='#api-resource3_init' data-toggle='tab'>/transfers</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-success resource-method'>POST</div>
+                    <a href='#api-resource3_complete' data-toggle='tab'>/transfers</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-success resource-method'>POST</div>
+                    <a href='#api-resource3_completeWithRedirect' data-toggle='tab'>/transfers</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <h2 class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#api-resource' href='#api-resource4'>/users</a>
+                </h2>
+              </div>
+              <div id='api-resource4' class='panel-collapse collapse'>
+                <ul class='list-unstyled'>
+                  <li class='resource-item'>
+                    <div class='label label-primary resource-method'>GET</div>
+                    <a href='#api-resource4_getTransfer' data-toggle='tab'>/users/{userId}/transfers/{transferId}</a>
+                  </li>
+                  <li class='resource-item'>
+                    <div class='label label-primary resource-method'>GET</div>
+                    <a href='#api-resource4_getHistory' data-toggle='tab'>/users/{userId}/transfers</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class='panel panel-default'>
+              <div class='panel-heading'>
+                <h2 class='panel-title'>
+                  <a data-toggle='collapse' data-parent='#api-resource' href='#api-resource5'>/uapi</a>
+                </h2>
+              </div>
+              <div id='api-resource5' class='panel-collapse collapse'>
+                <ul class='list-unstyled'>
+                  <li class='resource-item'>
+                    <div class='label label-primary resource-method'>GET</div>
+                    <a href='#api-resource5_status' data-toggle='tab'>/uapi/status</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-8 content'>
+          <div class='tab-content'>
+            <div class='tab-pane' id='api-resource0_addCard'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-success'>POST</span>
+                  <span>/cards</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource0_addCard' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource0_addCard' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource0_addCard'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/cards</span>
+                    <h4>Request</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                    <h4>Response</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource0_addCard'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>CardsController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>addCard</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.CustomerCard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_addCard'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-success'>POST</span>
+                  <span>users/{userId}/cards</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_addCard' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_addCard' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_addCard'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/cards</span>
+                    <h4>Request</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                    <h4>Response</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_addCard'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>CustomerCardsController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>addCard</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.CustomerCard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_getCards'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-primary'>GET</span>
+                  <span>users/{userId}/cards</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_getCards' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#queryparamapi-resource1_getCards' data-toggle='tab'>Query parameter</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_getCards' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_getCards'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/cards?active=&amp;default=&amp;deleted=</span>
+                    <h4>Response</h4>
+                    <pre>returned lists currently not supported in json output</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='queryparamapi-resource1_getCards'>
+                  <table class='table table-bordered table-striped'>
+                    <caption>Method Parameters</caption>
+                    <thead>
+                      <th>Name</th>
+                      <th>Required</th>
+                      <th>Default</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>active</td>
+                        <td>true</td>
+                        <td>true</td>
+                      </tr>
+                      <tr>
+                        <td>default</td>
+                        <td>true</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>deleted</td>
+                        <td>true</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_getCards'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>CustomerCardsController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>getCards</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>java.util.List&lt;ru.alfabank.uapi.rest.entities.CustomerCard&gt;</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_updateCard'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-info'>PUT</span>
+                  <span>users/{userId}/cards{cardId}</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_updateCard' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_updateCard' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_updateCard'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/cards{cardId}</span>
+                    <h4>Request</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                    <h4>Response</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_updateCard'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>CustomerCardsController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>updateCard</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.CustomerCard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_deleteCard'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-danger'>DELETE</span>
+                  <span>users/{userId}/cards{cardId}</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_deleteCard' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_deleteCard' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_deleteCard'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/cards{cardId}</span>
+                    <h4>Response</h4>
+                    <pre>{
+    "active": true,
+    "deletedAsDebit": true,
+    "alfa": true,
+    "id": "String",
+    "deletedAsCredit": true,
+    "color": "String",
+    "CVV": "String",
+    "defaultCard": true,
+    "credit": true,
+    "debit": true,
+    "expDate": "String",
+    "name": "String",
+    "number": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_deleteCard'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>CustomerCardsController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>deleteCard</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.CustomerCard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_getList'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-primary'>GET</span>
+                  <span>users/{userId}/templates</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_getList' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#queryparamapi-resource1_getList' data-toggle='tab'>Query parameter</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_getList' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_getList'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/templates?active=&amp;deleted=</span>
+                    <h4>Response</h4>
+                    <pre>returned lists currently not supported in json output</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='queryparamapi-resource1_getList'>
+                  <table class='table table-bordered table-striped'>
+                    <caption>Method Parameters</caption>
+                    <thead>
+                      <th>Name</th>
+                      <th>Required</th>
+                      <th>Default</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>active</td>
+                        <td>true</td>
+                        <td>true</td>
+                      </tr>
+                      <tr>
+                        <td>deleted</td>
+                        <td>true</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_getList'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TemplatesController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>getList</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>java.util.List&lt;ru.alfabank.uapi.rest.entities.TransferCustomerTemplate&gt;</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_getTemplate'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-primary'>GET</span>
+                  <span>users/{userId}/templates{templateId}</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_getTemplate' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_getTemplate' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_getTemplate'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/templates{templateId}</span>
+                    <h4>Response</h4>
+                    <pre>{
+    "deleted": true,
+    "active": true,
+    "recipientCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "currency": "String",
+    "id": "String",
+    "amount": null,
+    "verification": true,
+    "senderCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "name": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_getTemplate'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TemplatesController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>getTemplate</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.TransferCustomerTemplate</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_updateTemplate'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-info'>PUT</span>
+                  <span>users/{userId}/templates{templateId}</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_updateTemplate' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_updateTemplate' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_updateTemplate'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/templates{templateId}</span>
+                    <h4>Request</h4>
+                    <pre>{
+    "deleted": true,
+    "active": true,
+    "recipientCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "currency": "String",
+    "id": "String",
+    "amount": null,
+    "verification": true,
+    "senderCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "name": "String"
+}</pre>
+                    <h4>Response</h4>
+                    <pre>{
+    "deleted": true,
+    "active": true,
+    "recipientCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "currency": "String",
+    "id": "String",
+    "amount": null,
+    "verification": true,
+    "senderCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "name": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_updateTemplate'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TemplatesController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>updateTemplate</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.TransferCustomerTemplate</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource1_deleteTemplate'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-danger'>DELETE</span>
+                  <span>users/{userId}/templates{templateId}</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource1_deleteTemplate' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource1_deleteTemplate' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource1_deleteTemplate'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/apiusers/{userId}/templates{templateId}</span>
+                    <h4>Response</h4>
+                    <pre>{
+    "deleted": true,
+    "active": true,
+    "recipientCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "currency": "String",
+    "id": "String",
+    "amount": null,
+    "verification": true,
+    "senderCard": {
+        "active": true,
+        "deletedAsDebit": true,
+        "alfa": true,
+        "id": "String",
+        "deletedAsCredit": true,
+        "color": "String",
+        "CVV": "String",
+        "defaultCard": true,
+        "credit": true,
+        "debit": true,
+        "expDate": "String",
+        "name": "String",
+        "number": "String"
+    },
+    "name": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource1_deleteTemplate'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TemplatesController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>deleteTemplate</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.TransferCustomerTemplate</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource2_fee'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-success'>POST</span>
+                  <span>/fee</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource2_fee' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource2_fee' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource2_fee'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/fee</span>
+                    <h4>Request</h4>
+                    <pre>{
+    "fee": null,
+    "transactionId": "String",
+    "terminal": "String",
+    "appId": "String",
+    "sender": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    },
+    "currency": "String",
+    "comment": "String",
+    "status": "String",
+    "date": 42,
+    "error": "String",
+    "templateId": "String",
+    "amount": null,
+    "templateName": "String",
+    "postbackURL": "String",
+    "authorizationCode": "String",
+    "clientIp": "String",
+    "recipient": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    }
+}</pre>
+                    <h4>Response</h4>
+                    <pre>{
+    "fee": "String",
+    "max": "String",
+    "interest": "String",
+    "min": "String",
+    "constant": "String"
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource2_fee'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>FeeController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>fee</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.Fee</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource3_init'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-info'>PUT</span>
+                  <span>/transfers</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource3_init' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource3_init' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource3_init'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/transfers</span>
+                    <h4>Request</h4>
+                    <pre>{
+    "resourceIds": null,
+    "sender": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    },
+    "currency": "String",
+    "comment": "String",
+    "templateId": "String",
+    "amount": null,
+    "partnerId": "String",
+    "clientIP": "String",
+    "recipient": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    }
+}</pre>
+                    <h4>Response</h4>
+                    <pre>{
+    "PAReq": "String",
+    "transactionId": "String",
+    "sender": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    },
+    "termURL": "String",
+    "templateId": "String",
+    "MD": "String",
+    "acsURL": "String",
+    "recipient": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    }
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource3_init'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TransfersController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>init</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.transfers.TransferInitResponse</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource3_complete'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-success'>POST</span>
+                  <span>/transfers</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource3_complete' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource3_complete' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource3_complete'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/transfers</span>
+                    <h4>Response</h4>
+                    <pre>{
+    "fee": null,
+    "transactionId": "String",
+    "terminal": "String",
+    "appId": "String",
+    "sender": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    },
+    "currency": "String",
+    "comment": "String",
+    "status": "String",
+    "date": 42,
+    "error": "String",
+    "templateId": "String",
+    "amount": null,
+    "templateName": "String",
+    "postbackURL": "String",
+    "authorizationCode": "String",
+    "clientIp": "String",
+    "recipient": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    }
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource3_complete'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TransfersController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>complete</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.transfers.Transfer</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource3_completeWithRedirect'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-success'>POST</span>
+                  <span>/transfers</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource3_completeWithRedirect' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#queryparamapi-resource3_completeWithRedirect' data-toggle='tab'>Query parameter</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource3_completeWithRedirect' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource3_completeWithRedirect'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/transfers?MD=&amp;PaRes=</span>
+                  </div>
+                </div>
+                <div class='tab-pane' id='queryparamapi-resource3_completeWithRedirect'>
+                  <table class='table table-bordered table-striped'>
+                    <caption>Method Parameters</caption>
+                    <thead>
+                      <th>Name</th>
+                      <th>Required</th>
+                      <th>Default</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>MD</td>
+                        <td>true</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>PaRes</td>
+                        <td>true</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='tab-pane' id='implapi-resource3_completeWithRedirect'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TransfersController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>completeWithRedirect</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>org.springframework.http.ResponseEntity</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource4_getTransfer'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-primary'>GET</span>
+                  <span>/users/{userId}/transfers/{transferId}</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource4_getTransfer' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource4_getTransfer' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource4_getTransfer'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/users/{userId}/transfers/{transferId}</span>
+                    <h4>Response</h4>
+                    <pre>{
+    "fee": null,
+    "transactionId": "String",
+    "terminal": "String",
+    "appId": "String",
+    "sender": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    },
+    "currency": "String",
+    "comment": "String",
+    "status": "String",
+    "date": 42,
+    "error": "String",
+    "templateId": "String",
+    "amount": null,
+    "templateName": "String",
+    "postbackURL": "String",
+    "authorizationCode": "String",
+    "clientIp": "String",
+    "recipient": {
+        "card": {
+            "active": true,
+            "deletedAsDebit": true,
+            "alfa": true,
+            "id": "String",
+            "deletedAsCredit": true,
+            "color": "String",
+            "CVV": "String",
+            "defaultCard": true,
+            "credit": true,
+            "debit": true,
+            "expDate": "String",
+            "name": "String",
+            "number": "String"
+        }
+    }
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource4_getTransfer'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TransfersController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>getTransfer</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.transfers.Transfer</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource4_getHistory'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-primary'>GET</span>
+                  <span>/users/{userId}/transfers</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource4_getHistory' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#queryparamapi-resource4_getHistory' data-toggle='tab'>Query parameter</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource4_getHistory' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource4_getHistory'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/users/{userId}/transfers?sender_card_id=&amp;recipient_card_id=&amp;template_id=&amp;date_from=&amp;date_to=&amp;count=&amp;page=&amp;modestate=</span>
+                    <h4>Response</h4>
+                    <pre>{
+    "transfers": [
+        {
+            "fee": null,
+            "transactionId": "String",
+            "terminal": "String",
+            "appId": "String",
+            "sender": {
+                "card": {
+                    "active": true,
+                    "deletedAsDebit": true,
+                    "alfa": true,
+                    "id": "String",
+                    "deletedAsCredit": true,
+                    "color": "String",
+                    "CVV": "String",
+                    "defaultCard": true,
+                    "credit": true,
+                    "debit": true,
+                    "expDate": "String",
+                    "name": "String",
+                    "number": "String"
+                }
+            },
+            "currency": "String",
+            "comment": "String",
+            "status": "String",
+            "date": 42,
+            "error": "String",
+            "templateId": "String",
+            "amount": null,
+            "templateName": "String",
+            "postbackURL": "String",
+            "authorizationCode": "String",
+            "clientIp": "String",
+            "recipient": {
+                "card": {
+                    "active": true,
+                    "deletedAsDebit": true,
+                    "alfa": true,
+                    "id": "String",
+                    "deletedAsCredit": true,
+                    "color": "String",
+                    "CVV": "String",
+                    "defaultCard": true,
+                    "credit": true,
+                    "debit": true,
+                    "expDate": "String",
+                    "name": "String",
+                    "number": "String"
+                }
+            }
+        }
+    ],
+    "total": 41
+}</pre>
+                  </div>
+                </div>
+                <div class='tab-pane' id='queryparamapi-resource4_getHistory'>
+                  <table class='table table-bordered table-striped'>
+                    <caption>Method Parameters</caption>
+                    <thead>
+                      <th>Name</th>
+                      <th>Required</th>
+                      <th>Default</th>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>sender_card_id</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>recipient_card_id</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>template_id</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>date_from</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>date_to</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>count</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>page</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>modestate</td>
+                        <td>false</td>
+                        <td></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class='tab-pane' id='implapi-resource4_getHistory'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>TransfersController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>getHistory</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>ru.alfabank.uapi.rest.entities.transfers.TransferListResponse</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class='tab-pane' id='api-resource5_status'>
+              <div class='well'>
+                <h4>
+                  <span class='label label-primary'>GET</span>
+                  <span>/uapi/status</span>
+                </h4>
+              </div>
+              <ul class='nav nav-tabs'>
+                <li class='active'>
+                  <a href='#summaryapi-resource5_status' data-toggle='tab'>Summary</a>
+                </li>
+                <li>
+                  <a href='#implapi-resource5_status' data-toggle='tab'>Implementation</a>
+                </li>
+              </ul>
+              <div class='tab-content'>
+                <div class='tab-pane active' id='summaryapi-resource5_status'>
+                  <div class='well'>
+                    <h4>Url</h4>
+                    <span>http://testjmb.alfabank.ru/api/uapi/status</span>
+                  </div>
+                </div>
+                <div class='tab-pane' id='implapi-resource5_status'>
+                  <table class='table table-hover'>
+                    <tbody>
+                      <tr>
+                        <td>Implementation class</td>
+                        <td>UAPIStatusController</td>
+                      </tr>
+                      <tr>
+                        <td>Method name</td>
+                        <td>status</td>
+                      </tr>
+                      <tr>
+                        <td>Response class</td>
+                        <td>org.springframework.http.ResponseEntity</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src='http://code.jquery.com/jquery-1.10.1.min.js'></script>
+    <script src='http://code.jquery.com/jquery-migrate-1.2.1.min.js'></script>
+    <script src='http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js'></script>
+  </body>
+</html>
